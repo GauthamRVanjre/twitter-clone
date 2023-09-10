@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import Input from "./Input";
 
 const SearchBar = () => {
-  return <div>SearchBar</div>;
+  const [userInput, setUserInput] = useState("");
+  return (
+    <>
+      <Input
+        placeholder="whom to follow?"
+        value={userInput}
+        type="text"
+        onChange={(e) => setUserInput(e.target.value)}
+      />
+      {/* {users List} */}
+    </>
+  );
 };
 
 export default SearchBar;
