@@ -1,9 +1,12 @@
-import users from "@/app/helpers/constants";
+import { connect } from "@/app/helpers/server-helper";
+import prisma from "@/prisma/prisma";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
+import { usersTypes } from "@/app/types/types";
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -15,11 +18,32 @@ export const authOptions: NextAuthOptions = {
         if (!credentials || !credentials.email || !credentials.password)
           return null;
 
-        const user = users.find((item) => item.email === credentials.email);
-        if (user?.password === credentials.password) {
-          return user;
+        try {
+          await connect();
+          const askedUser = await prisma.user.findFirst({
+            where: {
+              email: credentials.email,
+            },
+          });
+
+          if (!askedUser) {
+            throw new Error("User not found");
+          }
+
+          const isPasswordCorrect = await bcrypt.compare(
+            credentials.password,
+            askedUser?.password!
+          );
+
+          if (isPasswordCorrect) {
+            return askedUser;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          console.log(error);
+          return null;
         }
-        return null;
       },
     }),
   ],
