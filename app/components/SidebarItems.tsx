@@ -12,10 +12,12 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
   icon: Icon,
   label,
   auth,
+  onClick,
 }) => {
   return (
     <div className="flex flex-row items-center">
       <div
+        onClick={onClick}
         className="relative rounded-full h-14 w-14
     flex items-center justify-center
     p-4
