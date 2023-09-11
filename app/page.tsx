@@ -8,7 +8,6 @@ export default function Home() {
   const { data: session } = useSession();
   return (
     <>
-      <h1>{JSON.stringify(session)}</h1>
       <div className="flex w-full m-2">
         <div className="w-1/4">
           {/* Sidebar */}

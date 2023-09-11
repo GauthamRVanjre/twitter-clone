@@ -26,6 +26,10 @@ const authOptions: NextAuthOptions = {
             },
           });
 
+          if (!askedUser) {
+            throw new Error("User not found");
+          }
+
           const isPasswordCorrect = await bcrypt.compare(
             credentials.password,
             askedUser?.password!
@@ -36,7 +40,6 @@ const authOptions: NextAuthOptions = {
           } else {
             return null;
           }
-          return null;
         } catch (error) {
           console.log(error);
           return null;
