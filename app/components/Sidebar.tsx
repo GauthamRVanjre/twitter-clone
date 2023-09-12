@@ -8,6 +8,7 @@ import { BiLogOut } from "react-icons/bi";
 import { signOut, useSession } from "next-auth/react";
 import SidebarTweetButton from "./SidebarTweetButton";
 import LoginModel from "./models/LoginModel";
+import RegisterModel from "./models/RegisterModel";
 
 const Sidebar = () => {
   const { data: session, status } = useSession();
@@ -61,7 +62,10 @@ const Sidebar = () => {
                 Tweet
               </div>
             ) : (
-              <LoginModel />
+              <>
+                <LoginModel />
+                <RegisterModel />
+              </>
             )}
           </div>
         </div>
