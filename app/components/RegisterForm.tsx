@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -13,7 +14,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { SignUpFormValidation } from "@/lib/validations/SignUpFormValidation";
 
@@ -54,24 +54,29 @@ const RegisterForm = () => {
 
       if (response.ok) {
         toast.success("user created successfully");
+        window.location.href = "/";
       }
     } catch (error) {
       toast.error("something went wrong");
     }
 
+    form.reset();
     setIsLoading(false);
   };
 
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onFinish)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(onFinish)}
+          className="space-y-8 bg-gray-800 p-4"
+        >
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-600">Name</FormLabel>
+                <FormLabel className="text-white-600">Name</FormLabel>
                 <FormControl>
                   <Input
                     disabled={isLoading}
@@ -91,7 +96,7 @@ const RegisterForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-600">Email</FormLabel>
+                <FormLabel className="text-white-600">Email</FormLabel>
                 <FormControl>
                   <Input
                     disabled={isLoading}
@@ -111,7 +116,7 @@ const RegisterForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-600">Password</FormLabel>
+                <FormLabel className="text-white-600">Password</FormLabel>
                 <FormControl>
                   <Input
                     disabled={isLoading}

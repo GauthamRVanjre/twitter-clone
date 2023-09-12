@@ -59,7 +59,7 @@ const LoginForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-600">Email</FormLabel>
+                <FormLabel className="text-white-600">Email</FormLabel>
                 <FormControl>
                   <Input
                     disabled={isLoading}
@@ -79,7 +79,7 @@ const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-600">Password</FormLabel>
+                <FormLabel className="text-white-600">Password</FormLabel>
                 <FormControl>
                   <Input
                     disabled={isLoading}
@@ -97,9 +97,9 @@ const LoginForm = () => {
             Submit
           </Button>
 
-          <FormDescription>
+          <FormDescription className="text-white-600">
             New to twitter. Sign up{" "}
-            <a href="/" className="hover:text-gray-700 cursor-pointer">
+            <a href="/SignUp" className="hover:text-gray-700 cursor-pointer">
               Here
             </a>
           </FormDescription>
