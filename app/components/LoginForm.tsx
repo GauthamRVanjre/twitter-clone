@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,13 +38,13 @@ const LoginForm = () => {
         callbackUrl: "/",
       });
       if (result?.error) {
-        console.log("user is not working");
+        toast.error("Invalid Credentials");
       }
       if (result?.url) {
-        console.log("login successful");
+        toast.success("login successfull");
       }
     } catch (error) {
-      console.log("This works if data input has some problem");
+      console.log("something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -94,6 +96,13 @@ const LoginForm = () => {
           <Button disabled={isLoading} type="submit">
             Submit
           </Button>
+
+          <FormDescription>
+            New to twitter. Sign up{" "}
+            <a href="/" className="hover:text-gray-700 cursor-pointer">
+              Here
+            </a>
+          </FormDescription>
         </form>
       </Form>
     </>

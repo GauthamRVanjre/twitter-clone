@@ -39,19 +39,21 @@ const Sidebar = () => {
             <div className="ml-4">
               <BsTwitter size={32} />
             </div>
-            {items.map((item) => (
-              <SidebarItems
-                key={item.href}
-                label={item.label}
-                icon={item.icon}
-                auth={item.auth}
-              />
-            ))}
+
+            {status === "authenticated" &&
+              items.map((item) => (
+                <SidebarItems
+                  key={item.href}
+                  label={item.label}
+                  icon={item.icon}
+                  auth={item.auth}
+                />
+              ))}
+
             <SidebarItems
               onClick={() => signOut()}
               icon={BiLogOut}
               label="Logout"
-              //   href="/logout"
             />
 
             {status === "authenticated" ? (
