@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { SignUpFormValidation } from "@/lib/validations/SignUpFormValidation";
+import { signIn } from "next-auth/react";
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +46,25 @@ const RegisterForm = () => {
         toast.error("something went wrong, try again!");
       }
 
+      if (response.ok) {
+        try {
+          const result = await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            redirect: false,
+            callbackUrl: "/",
+          });
+          if (result?.error) {
+            toast.error("Invalid Credentials");
+          }
+          if (result?.url) {
+            toast.success("login successfull");
+          }
+        } catch (error) {
+          console.log("something went wrong");
+        }
+      }
+
       const data = await response.json();
       if (data.message === "body cannot be empty") {
         toast.error("make sure to fill all the fields");
@@ -69,8 +89,9 @@ const RegisterForm = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onFinish)}
-          className="space-y-8 bg-gray-800 p-4"
+          className="space-y-8 bg-gray-800 p-4 w-[500px]"
         >
+          <div className="text-center">Sign Up for an exciting journey</div>
           <FormField
             control={form.control}
             name="name"
