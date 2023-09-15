@@ -8,6 +8,7 @@ import { BiLogOut } from "react-icons/bi";
 import { signOut, useSession } from "next-auth/react";
 import SidebarTweetButton from "./SidebarTweetButton";
 import LoginModel from "./models/LoginModel";
+import RegisterModel from "./models/RegisterModel";
 
 const Sidebar = () => {
   const { data: session, status } = useSession();
@@ -39,19 +40,21 @@ const Sidebar = () => {
             <div className="ml-4">
               <BsTwitter size={32} />
             </div>
-            {items.map((item) => (
-              <SidebarItems
-                key={item.href}
-                label={item.label}
-                icon={item.icon}
-                auth={item.auth}
-              />
-            ))}
+
+            {status === "authenticated" &&
+              items.map((item) => (
+                <SidebarItems
+                  key={item.href}
+                  label={item.label}
+                  icon={item.icon}
+                  auth={item.auth}
+                />
+              ))}
+
             <SidebarItems
               onClick={() => signOut()}
               icon={BiLogOut}
               label="Logout"
-              //   href="/logout"
             />
 
             {status === "authenticated" ? (
@@ -59,7 +62,9 @@ const Sidebar = () => {
                 Tweet
               </div>
             ) : (
-              <LoginModel />
+              <>
+                <LoginModel />
+              </>
             )}
           </div>
         </div>

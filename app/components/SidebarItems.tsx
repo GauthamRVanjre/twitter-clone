@@ -30,6 +30,7 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
         <Icon size={28} />
       </div>
       <div
+        onClick={onClick}
         className="
         relative
         hidden
