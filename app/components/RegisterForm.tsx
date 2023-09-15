@@ -42,11 +42,8 @@ const RegisterForm = () => {
         }),
       });
 
-      if (!response.ok) {
-        toast.error("something went wrong, try again!");
-      }
-
       if (response.ok) {
+        toast.success("user created successfully");
         try {
           const result = await signIn("credentials", {
             email: values.email,
@@ -63,6 +60,7 @@ const RegisterForm = () => {
         } catch (error) {
           console.log("something went wrong");
         }
+        window.location.href = "/";
       }
 
       const data = await response.json();
@@ -70,11 +68,6 @@ const RegisterForm = () => {
         toast.error("make sure to fill all the fields");
       } else if (data.message === "email already exists") {
         toast.error("user already exists");
-      }
-
-      if (response.ok) {
-        toast.success("user created successfully");
-        window.location.href = "/";
       }
     } catch (error) {
       toast.error("something went wrong");
