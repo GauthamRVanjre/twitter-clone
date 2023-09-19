@@ -3,23 +3,17 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import SearchBar from "../components/SearchBar";
 import ProfileLayout from "../components/profile/ProfileLayout";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const page = () => {
-  return (
-    <div className="flex w-full m-2">
-      <div className="w-1/4">
-        {/* Sidebar */}
-        <Sidebar />
-      </div>
-      <div className="w-1/2">
-        <ProfileLayout />
-      </div>
-      <div className="w-1/4">
-        {/* Search Bar */}
-        <SearchBar />
-      </div>
-    </div>
-  );
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  if (status === "unauthenticated") {
+    router.push("/");
+  }
+
+  return <ProfileLayout />;
 };
 
 export default page;

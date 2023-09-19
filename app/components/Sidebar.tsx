@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { BsTwitter } from "react-icons/bs";
 import { BsHouseFill } from "react-icons/bs";
@@ -48,6 +49,7 @@ const Sidebar = () => {
                   label={item.label}
                   icon={item.icon}
                   auth={item.auth}
+                  href={item.href}
                 />
               ))}
 
