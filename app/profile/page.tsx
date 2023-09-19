@@ -2,7 +2,6 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import SearchBar from "../components/SearchBar";
-import ProfileLayout from "../components/profile/ProfileLayout";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -13,7 +12,11 @@ const page = () => {
     router.push("/");
   }
 
-  return <ProfileLayout />;
+  return (
+    <>
+      <h1>{(session?.user as any)?.id}</h1>
+    </>
+  );
 };
 
 export default page;
