@@ -15,4 +15,13 @@ model User{
   name  String
   email String @unique
   password  String
+
+  // new fields which are optional and not required during signUp or login
+  profilePic String? 
+  username String? @unique
+  Bio String?
+  Location String?
+  Website String?
+  
+
 }

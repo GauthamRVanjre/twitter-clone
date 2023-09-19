@@ -1,5 +1,8 @@
 import { usersTypes } from "@/app/types/types";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import React from "react";
+import EditProfileDialog from "./EditProfileDialog";
 
 interface profileLayoutProps {
   id: string | string[];
@@ -21,6 +24,14 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
         </div>
         <div className="flex flex-row items-center space-x-4">
           <button className="btn btn-primary">Follow</button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline">Edit Profile</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <EditProfileDialog />
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
       <div className="flex flex-col p-4">
