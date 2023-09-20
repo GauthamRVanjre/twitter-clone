@@ -14,13 +14,28 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { EditProfileValidation } from "@/lib/validations/EditProfileValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
 const EditProfileForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [imageURL, setImageURL] = useState("");
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setImageURL(base64String);
+      };
+    } else {
+      setImageURL("");
+    }
+  };
 
   const form = useForm<z.infer<typeof EditProfileValidation>>({
     resolver: zodResolver(EditProfileValidation),
@@ -59,8 +74,9 @@ const EditProfileForm = () => {
                       disabled={isLoading}
                       className="cursor-pointer text-white-600 glass rounded-2xl"
                       type="file"
+                      onChange={handleImageChange}
                       accept="image/jpeg,image/png"
-                      {...field}
+                      required
                     />
                   </FormControl>
                   <FormMessage />
