@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 
 const page = () => {
   const { id } = useParams();
-  const [userDetails, setUserDetails] = useState<usersTypes>({
+  const [userDetails, setUserDetails] = useState({
     id: "",
     name: "",
     email: "",

@@ -7,7 +7,7 @@ import Image from "next/image";
 
 interface profileLayoutProps {
   id: string | string[];
-  userDetails: usersTypes;
+  userDetails: any;
 }
 
 const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
