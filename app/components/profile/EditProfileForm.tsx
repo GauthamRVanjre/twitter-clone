@@ -14,6 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { EditProfileValidation } from "@/lib/validations/EditProfileValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -22,6 +23,7 @@ import { z } from "zod";
 const EditProfileForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [imageURL, setImageURL] = useState("");
+  const { data: session } = useSession();
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -40,9 +42,9 @@ const EditProfileForm = () => {
   const form = useForm<z.infer<typeof EditProfileValidation>>({
     resolver: zodResolver(EditProfileValidation),
     defaultValues: {
-      pic: "",
+      profilePic: "",
       username: "",
-      bio: "",
+      Bio: "",
       Location: "",
       Website: "",
     },
@@ -50,8 +52,22 @@ const EditProfileForm = () => {
 
   const onFinish = async (values: z.infer<typeof EditProfileValidation>) => {
     setIsLoading(true);
+    if (imageURL !== null) {
+      values.profilePic = imageURL;
+    }
+
+    console.log("values", values);
     try {
-      console.log(values);
+      const response = await fetch(`/api/users/${(session?.user as any)?.id}`, {
+        method: "PUT",
+        body: JSON.stringify(values),
+      });
+
+      if (response.status === 200) {
+        toast.success("user profile updated successfully");
+      } else {
+        toast.error("something went wrong! try again");
+      }
     } catch (error) {
       console.log("something went wrong");
     } finally {
@@ -65,7 +81,7 @@ const EditProfileForm = () => {
           <ScrollArea className="h-[400px] ">
             <FormField
               control={form.control}
-              name="pic"
+              name="profilePic"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-white-600">Profile pic</FormLabel>
@@ -106,7 +122,7 @@ const EditProfileForm = () => {
 
             <FormField
               control={form.control}
-              name="bio"
+              name="Bio"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-white-600">Enter Bio</FormLabel>

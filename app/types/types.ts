@@ -3,10 +3,15 @@ export type usersTypes = {
   name: string;
   email: string;
   password: string | undefined;
+  imageUrl: string;
+  username: string;
+  bio: string;
+  location: string;
+  website: string;
 };
 
 export type userProfileTypes = {
-  profilePic: string;
+  imageUrl: string;
   username: string;
   bio: string;
   location: string;

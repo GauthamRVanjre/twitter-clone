@@ -27,21 +27,23 @@ export async function GET(
 }
 
 export async function PUT(
-  req: Request,
+  request: Request,
   { params }: { params: { slug: string } }
 ) {
   try {
+    const body = await request.text();
     await connect();
-    const userData = await prisma.user.update({
+
+    const response = await prisma.user.update({
       where: {
         id: params.slug,
       },
       data: {
-        ...JSON.parse(await req.text()),
+        ...JSON.parse(body),
       },
     });
 
-    return new Response(JSON.stringify(userData), { status: 200 });
+    return new Response(JSON.stringify(response), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ message: "something went wrong!" }), {
       status: 500,
