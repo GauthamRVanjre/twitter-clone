@@ -3,11 +3,11 @@ export type usersTypes = {
   name: string;
   email: string;
   password: string | undefined;
-  imageUrl: string;
+  profilePic: string;
   username: string;
-  bio: string;
-  location: string;
-  website: string;
+  Bio: string;
+  Location: string;
+  Website: string;
 };
 
 export type userProfileTypes = {

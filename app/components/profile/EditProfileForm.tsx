@@ -72,6 +72,7 @@ const EditProfileForm = () => {
       console.log("something went wrong");
     } finally {
       setIsLoading(false);
+      form.reset();
     }
   };
   return (
