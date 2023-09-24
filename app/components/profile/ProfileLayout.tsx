@@ -11,17 +11,11 @@ interface profileLayoutProps {
 }
 
 const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
+  console.log("userdetails", userDetails);
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-between p-4">
         <div className="flex flex-col items-center">
-          {/* <Image
-            src={userDetails.profilePic}
-            alt="Avatar"
-            className="w-16 h-16 rounded-full"
-          
-          /> */}
-
           <Image
             src={userDetails.profilePic}
             alt="Avatar"

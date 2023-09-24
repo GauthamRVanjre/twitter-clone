@@ -12,6 +12,9 @@ export async function GET(
       where: {
         id: params.slug,
       },
+      include: {
+        posts: true,
+      },
     });
 
     return new Response(JSON.stringify(userResult), {
