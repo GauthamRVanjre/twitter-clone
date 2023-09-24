@@ -1,17 +1,25 @@
 "use client";
 import ProfileLayout from "@/app/components/profile/ProfileLayout";
+import { usersTypes } from "@/app/types/types";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+
 import React, { useEffect, useState } from "react";
 
 const page = () => {
   const { id } = useParams();
   const { status } = useSession();
-  const [userDetails, setUserDetails] = useState({
+  const [userDetails, setUserDetails] = useState<usersTypes>({
     id: "",
     name: "",
     email: "",
     password: "",
+    profilePic: "",
+    username: "",
+    Bio: "",
+    Location: "",
+    Website: "",
+    posts: [],
   });
 
   const getUserDetails = async () => {

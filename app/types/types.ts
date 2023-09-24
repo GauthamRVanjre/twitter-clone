@@ -8,6 +8,7 @@ export type usersTypes = {
   Bio: string;
   Location: string;
   Website: string;
+  posts: postTypes[];
 };
 
 export type userProfileTypes = {
@@ -16,4 +17,12 @@ export type userProfileTypes = {
   bio: string;
   location: string;
   website: string;
+};
+
+export type postTypes = {
+  id: string;
+  body: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
 };

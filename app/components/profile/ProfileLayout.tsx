@@ -1,13 +1,14 @@
-import { usersTypes } from "@/app/types/types";
+import { postTypes, usersTypes } from "@/app/types/types";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import React from "react";
 import EditProfileDialog from "./EditProfileDialog";
 import Image from "next/image";
+import TweetCard from "../TweetCard";
 
 interface profileLayoutProps {
   id: string | string[];
-  userDetails: any;
+  userDetails: usersTypes;
 }
 
 const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
@@ -62,6 +63,24 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
         <div className="flex flex-col">
           <h4 className="font-bold text-lg mt-4">Following</h4>
           <p className="text-gray-500">200</p>
+        </div>
+      </div>
+
+      <hr />
+
+      <div className="flex flex-col p-4">
+        <h4 className="font-bold text-lg mt-4">Your tweets</h4>
+        <div className="mt-2">
+          {userDetails.posts.map((post: postTypes) => {
+            return (
+              <TweetCard
+                profilePic={userDetails.profilePic}
+                name={userDetails.name}
+                username={userDetails.username}
+                post={post}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
