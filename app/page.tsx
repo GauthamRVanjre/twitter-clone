@@ -6,6 +6,7 @@ import SearchBar from "./components/SearchBar";
 
 export default function Home() {
   const { data: session } = useSession();
+  console.log(session);
   return (
     <>
       <div className="flex w-full m-2">
