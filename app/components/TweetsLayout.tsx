@@ -1,5 +1,6 @@
 import React from "react";
 import UserTweetForm from "./home/UserTweetForm";
+import HomeTweetLayout from "./Home";
 
 const TweetsLayout = () => {
   return (
@@ -8,6 +9,7 @@ const TweetsLayout = () => {
         <h1 className="text-2xl">Home</h1>
 
         <UserTweetForm />
+        {/* <HomeTweetLayout /> */}
       </div>
     </>
   );

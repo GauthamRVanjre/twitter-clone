@@ -18,7 +18,7 @@ export default function Home() {
           {/* Tweets Layout */}
           <TweetsLayout />
         </div>
-        <div className="w-1/4">
+        <div className="w-1/4 hidden lg:block">
           {/* Search Bar */}
           <SearchBar />
         </div>

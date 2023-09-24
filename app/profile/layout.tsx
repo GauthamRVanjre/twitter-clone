@@ -10,7 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <Sidebar />
       </div>
       <div className="w-1/2">{children}</div>
-      <div className="w-1/4">
+      <div className="w-1/4 hidden lg:block">
         {/* Search Bar */}
         <SearchBar />
       </div>
