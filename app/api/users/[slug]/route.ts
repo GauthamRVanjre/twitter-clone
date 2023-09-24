@@ -48,5 +48,7 @@ export async function PUT(
     return new Response(JSON.stringify({ message: "something went wrong!" }), {
       status: 500,
     });
+  } finally {
+    prisma.$disconnect();
   }
 }
