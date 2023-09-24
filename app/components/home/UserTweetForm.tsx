@@ -26,6 +26,8 @@ const UserTweetForm = () => {
       } else {
         toast.error("could'nt post tweet, try again!");
       }
+
+      setTweetData("");
     } catch (error) {
       toast.error("something went wrong!");
     }
@@ -59,7 +61,7 @@ const UserTweetForm = () => {
               disabled={tweetData.length > 0 ? false : true}
               className="flex items-center justify-center w-16 px-4 py-2 mt-4 text-sm font-semibold text-white bg-blue-500 rounded-full cursor-pointer hover:bg-blue-600"
             >
-              Post
+              Tweet
             </Button>
           </div>
         </form>

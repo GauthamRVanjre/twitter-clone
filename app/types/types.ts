@@ -19,10 +19,17 @@ export type userProfileTypes = {
   website: string;
 };
 
+export type userInPostsData = {
+  name: string;
+  username: string;
+  profilePic: string;
+};
+
 export type postTypes = {
   id: string;
   body: string;
   createdAt: string;
   updatedAt: string;
   userId: string;
+  user: userInPostsData;
 };

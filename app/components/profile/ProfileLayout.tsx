@@ -8,24 +8,23 @@ import TweetCard from "../TweetCard";
 
 interface profileLayoutProps {
   id: string | string[];
-  userDetails: usersTypes;
+  userDetails?: usersTypes;
 }
 
 const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
-  console.log("userdetails", userDetails);
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-between p-4">
         <div className="flex flex-col items-center">
           <Image
-            src={userDetails.profilePic}
+            src={userDetails?.profilePic || ""}
             alt="Avatar"
             className="w-24 h-24 rounded-full"
             width={40}
             height={80}
           />
-          <h3 className="text-xl font-bold mt-2 pl-4">{userDetails.name}</h3>
-          <p className="text-gray-500">{userDetails.username}</p>
+          <h3 className="text-xl font-bold mt-2 pl-4">{userDetails?.name}</h3>
+          <p className="text-gray-500">{userDetails?.username}</p>
         </div>
         <div className="flex flex-row items-center space-x-4">
           <button className="btn btn-primary">Follow</button>
@@ -43,15 +42,15 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
       <hr />
       <div className="flex flex-col p-4">
         <h4 className="font-bold text-lg">Bio</h4>
-        <p className="text-gray-500">{userDetails.Bio}</p>
+        <p className="text-gray-500">{userDetails?.Bio}</p>
         <h4 className="font-bold text-lg mt-4">Location</h4>
-        <p className="text-gray-500">{userDetails.Location}</p>
+        <p className="text-gray-500">{userDetails?.Location}</p>
         <h4 className="font-bold text-lg mt-4">Website</h4>
-        <a href={userDetails.Website} className="text-blue-500">
-          {userDetails.Website}
+        <a href={userDetails?.Website} className="text-blue-500">
+          {userDetails?.Website}
         </a>
         <h4 className="font-bold text-lg mt-4">Email</h4>
-        <p className="text-gray-500">{userDetails.email}</p>
+        <p className="text-gray-500">{userDetails?.email}</p>
       </div>
 
       <div className="flex flex-row p-4">
@@ -71,12 +70,13 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
       <div className="flex flex-col p-4">
         <h4 className="font-bold text-lg mt-4">Your tweets</h4>
         <div className="mt-2">
-          {userDetails.posts.map((post: postTypes) => {
+          {userDetails?.posts.map((post: postTypes) => {
             return (
               <TweetCard
-                profilePic={userDetails.profilePic}
-                name={userDetails.name}
-                username={userDetails.username}
+                key={post.id}
+                profilePic={userDetails?.profilePic}
+                name={userDetails?.name}
+                username={userDetails?.username}
                 post={post}
               />
             );

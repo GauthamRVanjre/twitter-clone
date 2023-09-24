@@ -12,9 +12,9 @@ import {
 import { postTypes } from "../types/types";
 
 interface TweetCardProps {
-  profilePic: string;
-  name: string;
-  username: string;
+  profilePic?: string;
+  name?: string;
+  username?: string;
   post: postTypes;
 }
 
@@ -59,7 +59,7 @@ const TweetCard: React.FC<TweetCardProps> = ({
       <div className="flex w-full border-l-transparent mt-4">
         <div className="w-1/6">
           <Image
-            src={profilePic}
+            src={profilePic || ""}
             width={30}
             height={10}
             alt="user pic"

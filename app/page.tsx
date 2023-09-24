@@ -11,12 +11,6 @@ export default function Home() {
   const { userDetails, setUserDetails } = useUser();
   console.log(session);
 
-  // if(status === "authenticated"){
-  //   setUserDetails({
-
-  //   })
-  // }
-
   const getUserDetails = async () => {
     const response = await fetch(`/api/users/${(session?.user as any)?.id}`);
     const data = await response.json();

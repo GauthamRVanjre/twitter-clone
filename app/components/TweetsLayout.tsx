@@ -4,9 +4,11 @@ import UserTweetForm from "./home/UserTweetForm";
 import toast from "react-hot-toast";
 import { postTypes } from "../types/types";
 import TweetCard from "./TweetCard";
+import { useUser } from "../UserContext";
 
 const TweetsLayout = () => {
   const [posts, setPosts] = useState<postTypes[]>([]);
+  const { userDetails } = useUser();
 
   const fetchPosts = async () => {
     const response = await fetch("/api/post");
@@ -28,13 +30,16 @@ const TweetsLayout = () => {
         <h1 className="text-2xl">Home</h1>
 
         <UserTweetForm />
-        {/* {posts.map((post:postTypes) =>{
+        {posts.map((post: postTypes) => {
           return (
             <TweetCard
-
+              username={post.user.username}
+              profilePic={post.user.profilePic}
+              name={post.user.name}
+              post={post}
             />
-          )
-        })} */}
+          );
+        })}
         {/* <HomeTweetLayout /> */}
       </div>
     </>

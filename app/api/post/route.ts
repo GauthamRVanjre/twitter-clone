@@ -34,7 +34,17 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     await prisma.$connect();
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      include: {
+        user: {
+          select: {
+            name: true,
+            username: true,
+            profilePic: true,
+          },
+        },
+      },
+    });
 
     return new Response(JSON.stringify(posts), { status: 200 });
   } catch (error) {
