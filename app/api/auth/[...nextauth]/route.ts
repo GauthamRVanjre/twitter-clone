@@ -36,7 +36,11 @@ const authOptions: NextAuthOptions = {
           );
 
           if (isPasswordCorrect) {
-            return askedUser;
+            return {
+              id: askedUser.id,
+              name: askedUser.name,
+              email: askedUser.email,
+            };
           } else {
             return null;
           }

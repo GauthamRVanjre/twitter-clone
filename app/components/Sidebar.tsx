@@ -53,16 +53,17 @@ const Sidebar = () => {
                 />
               ))}
 
-            <SidebarItems
-              onClick={() => signOut()}
-              icon={BiLogOut}
-              label="Logout"
-            />
-
             {status === "authenticated" ? (
-              <div className="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-semibold text-white bg-blue-500 rounded-full cursor-pointer hover:bg-blue-600">
-                Tweet
-              </div>
+              <>
+                <SidebarItems
+                  onClick={() => signOut()}
+                  icon={BiLogOut}
+                  label="Logout"
+                />
+                <div className="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-semibold text-white bg-blue-500 rounded-full cursor-pointer hover:bg-blue-600">
+                  Tweet
+                </div>
+              </>
             ) : (
               <>
                 <LoginModel />
