@@ -56,7 +56,10 @@ const Sidebar = () => {
             {status === "authenticated" ? (
               <>
                 <SidebarItems
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    signOut();
+                    localStorage.clear();
+                  }}
                   icon={BiLogOut}
                   label="Logout"
                 />

@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import Input from "../Input";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { useUser } from "@/app/UserContext";
 
 const UserTweetForm = () => {
   const [tweetData, setTweetData] = useState("");
   const { data: session } = useSession();
   const currentUser = (session?.user as any)?.id;
+  const { userDetails } = useUser();
 
   const handleTweetPost = async () => {
     try {
@@ -32,7 +34,13 @@ const UserTweetForm = () => {
   return (
     <>
       <div className="flex flex-row mt-4">
-        <p>This will be an image</p>
+        <Image
+          src={userDetails?.profilePic || ""}
+          alt="user pic"
+          width={20}
+          height={20}
+          className="w-12 h-12 rounded-full"
+        />
 
         <form
           onSubmit={(e) => e.preventDefault()}

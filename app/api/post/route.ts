@@ -30,3 +30,18 @@ export async function POST(request: Request) {
     await prisma.$disconnect();
   }
 }
+
+export async function GET(request: Request) {
+  try {
+    await prisma.$connect();
+    const posts = await prisma.post.findMany();
+
+    return new Response(JSON.stringify(posts), { status: 200 });
+  } catch (error) {
+    return new Response(JSON.stringify({ message: "something went wrong!" }), {
+      status: 500,
+    });
+  } finally {
+    await prisma.$disconnect();
+  }
+}
