@@ -5,10 +5,13 @@ import toast from "react-hot-toast";
 import { postTypes } from "../types/types";
 import TweetCard from "./TweetCard";
 import { useUser } from "../UserContext";
+import { useSession } from "next-auth/react";
 
 const TweetsLayout = () => {
   const [posts, setPosts] = useState<postTypes[]>([]);
   const { userDetails } = useUser();
+  const { data: session } = useSession();
+  const currentUser = session?.user?.id;
 
   const fetchPosts = async () => {
     const response = await fetch("/api/post");
@@ -37,6 +40,7 @@ const TweetsLayout = () => {
               profilePic={post.user.profilePic}
               name={post.user.name}
               post={post}
+              userId={currentUser}
             />
           );
         })}

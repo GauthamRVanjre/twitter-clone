@@ -32,4 +32,5 @@ export type postTypes = {
   updatedAt: string;
   userId: string;
   user: userInPostsData;
+  likedIds: string[];
 };

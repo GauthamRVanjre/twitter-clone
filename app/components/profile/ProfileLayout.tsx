@@ -7,7 +7,7 @@ import Image from "next/image";
 import TweetCard from "../TweetCard";
 
 interface profileLayoutProps {
-  id: string | string[];
+  id: string | undefined;
   userDetails?: usersTypes;
 }
 
@@ -80,6 +80,7 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
                 name={userDetails?.name}
                 username={userDetails?.username}
                 post={post}
+                userId={id}
               />
             );
           })}

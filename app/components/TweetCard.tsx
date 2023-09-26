@@ -10,12 +10,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { postTypes } from "../types/types";
+import toast from "react-hot-toast";
 
 interface TweetCardProps {
   profilePic?: string;
   name?: string;
   username?: string;
   post: postTypes;
+  userId: string | undefined;
 }
 
 const TweetCard: React.FC<TweetCardProps> = ({
@@ -23,6 +25,7 @@ const TweetCard: React.FC<TweetCardProps> = ({
   name,
   username,
   post,
+  userId,
 }) => {
   function formatDateToDDMonthYY(isoDateString: string) {
     const months = [
@@ -53,6 +56,23 @@ const TweetCard: React.FC<TweetCardProps> = ({
 
     return formattedDate;
   }
+
+  const handleLikeTweet = async () => {
+    try {
+      const likeTweet = await fetch(`/api/post/${post.id}`, {
+        method: "PUT",
+        body: JSON.stringify({ id: userId }),
+      });
+
+      if (likeTweet.status === 200) {
+        toast.success("tweet liked successfully");
+      } else {
+        toast.error("something went wrong");
+      }
+    } catch (error) {
+      toast.error("something went wrong!");
+    }
+  };
 
   return (
     <>
@@ -89,16 +109,20 @@ const TweetCard: React.FC<TweetCardProps> = ({
               </Tooltip>
             </TooltipProvider>
 
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <HeartIcon size={20} />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Like tweet</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {post?.likedIds?.includes(`${userId}`) ? (
+              <BsHeartFill size={20} />
+            ) : (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger onClick={handleLikeTweet}>
+                    <HeartIcon size={20} />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Like tweet</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
           </div>
         </div>
       </div>

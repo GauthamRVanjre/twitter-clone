@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 
 const page = () => {
   const { id } = useParams();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const [userDetails, setUserDetails] = useState<usersTypes>({
     id: "",
     name: "",
@@ -38,7 +38,7 @@ const page = () => {
 
   return (
     <div>
-      <ProfileLayout id={id} userDetails={userDetails} />
+      <ProfileLayout id={session?.user.id} userDetails={userDetails} />
     </div>
   );
 };

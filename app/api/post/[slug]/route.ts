@@ -25,7 +25,6 @@ export async function PUT(
         id: params.slug,
       },
       data: {
-        // ...JSON.parse(body),
         likedIds: {
           set: [...likedIds, body.id],
         },
@@ -37,5 +36,30 @@ export async function PUT(
     return new Response(JSON.stringify({ message: "something went wrong" }), {
       status: 500,
     });
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export async function GET(
+  request: Request,
+  { params }: { params: { slug: string } }
+) {
+  try {
+    await prisma.$connect();
+
+    const postResult = await prisma.post.findUnique({
+      where: {
+        id: params.slug,
+      },
+    });
+
+    return new Response(JSON.stringify(postResult), { status: 200 });
+  } catch (error) {
+    return new Response(JSON.stringify({ message: "something went wrong" }), {
+      status: 500,
+    });
+  } finally {
+    await prisma.$disconnect();
   }
 }
