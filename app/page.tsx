@@ -9,10 +9,9 @@ import { useEffect } from "react";
 export default function Home() {
   const { data: session, status } = useSession();
   const { userDetails, setUserDetails } = useUser();
-  console.log(session);
 
   const getUserDetails = async () => {
-    const response = await fetch(`/api/users/${(session?.user as any)?.id}`);
+    const response = await fetch(`/api/users/${session?.user?.id}`);
     const data = await response.json();
 
     setUserDetails({
@@ -28,7 +27,8 @@ export default function Home() {
       getUserDetails();
       localStorage.setItem("userDetails", JSON.stringify(userDetails));
     }
-  });
+    console.log("session", session);
+  }, [status]);
 
   return (
     <>

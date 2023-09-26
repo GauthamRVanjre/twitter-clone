@@ -1,4 +1,5 @@
 "use client";
+import { usersTypes } from "@/app/types/types";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,45 +21,31 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-const EditProfileForm = () => {
+interface EditProfileFormProps {
+  userDetails: usersTypes | undefined;
+}
+
+const EditProfileForm: React.FC<EditProfileFormProps> = ({ userDetails }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [imageURL, setImageURL] = useState("");
   const { data: session } = useSession();
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setImageURL(base64String);
-      };
-    } else {
-      setImageURL("");
-    }
-  };
-
   const form = useForm<z.infer<typeof EditProfileValidation>>({
     resolver: zodResolver(EditProfileValidation),
     defaultValues: {
-      profilePic: "",
-      username: "",
-      Bio: "",
-      Location: "",
-      Website: "",
+      username: userDetails?.username,
+      Bio: userDetails?.Bio,
+      Location: userDetails?.Location,
+      Website: userDetails?.Website,
     },
   });
 
   const onFinish = async (values: z.infer<typeof EditProfileValidation>) => {
     setIsLoading(true);
-    if (imageURL !== null) {
-      values.profilePic = imageURL;
-    }
 
     console.log("values", values);
     try {
-      const response = await fetch(`/api/users/${(session?.user as any)?.id}`, {
+      const response = await fetch(`/api/users/${session?.user?.id}`, {
         method: "PUT",
         body: JSON.stringify(values),
       });
@@ -72,7 +59,6 @@ const EditProfileForm = () => {
       console.log("something went wrong");
     } finally {
       setIsLoading(false);
-      form.reset();
     }
   };
   return (
@@ -80,27 +66,6 @@ const EditProfileForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onFinish)} className="space-y-8">
           <ScrollArea className="h-[400px] ">
-            <FormField
-              control={form.control}
-              name="profilePic"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-white-600">Profile pic</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      className="cursor-pointer text-white-600 glass rounded-2xl"
-                      type="file"
-                      onChange={handleImageChange}
-                      accept="image/jpeg,image/png"
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <FormField
               control={form.control}
               name="username"

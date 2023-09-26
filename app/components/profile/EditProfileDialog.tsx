@@ -5,8 +5,15 @@ import {
 } from "@/components/ui/dialog";
 import React from "react";
 import EditProfileForm from "./EditProfileForm";
+import { usersTypes } from "@/app/types/types";
 
-const EditProfileDialog = () => {
+interface EditProfileDialogProps {
+  userDetails: usersTypes | undefined;
+}
+
+const EditProfileDialog: React.FC<EditProfileDialogProps> = ({
+  userDetails,
+}) => {
   return (
     <>
       <DialogHeader>
@@ -15,7 +22,7 @@ const EditProfileDialog = () => {
           Make changes to your profile here. Click save when you're done.
         </DialogDescription>
       </DialogHeader>
-      <EditProfileForm />
+      <EditProfileForm userDetails={userDetails} />
     </>
   );
 };

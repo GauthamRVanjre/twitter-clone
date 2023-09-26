@@ -33,7 +33,7 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
               <Button variant="outline">Edit Profile</Button>
             </DialogTrigger>
             <DialogContent>
-              <EditProfileDialog />
+              <EditProfileDialog userDetails={userDetails} />
             </DialogContent>
           </Dialog>
         </div>
