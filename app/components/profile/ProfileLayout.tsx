@@ -19,11 +19,13 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
           <Image
             src={userDetails?.profilePic || ""}
             alt="Avatar"
-            className="w-24 h-24 rounded-full"
+            className="ml-2 w-24 h-24 rounded-full"
             width={40}
             height={80}
           />
-          <h3 className="text-xl font-bold mt-2 pl-4">{userDetails?.name}</h3>
+          <h3 className="text-xl font-bold mt-2 mb-2 pl-2">
+            {userDetails?.name}
+          </h3>
           <p className="text-gray-500">{userDetails?.username}</p>
         </div>
         <div className="flex flex-row items-center space-x-4">
