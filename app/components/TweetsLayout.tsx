@@ -25,7 +25,7 @@ const TweetsLayout = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [posts]);
 
   return (
     <>

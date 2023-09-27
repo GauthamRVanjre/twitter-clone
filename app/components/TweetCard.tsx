@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/tooltip";
 import { postTypes } from "../types/types";
 import toast from "react-hot-toast";
+import AddTweetComment from "./posts/AddTweetComment";
 
 interface TweetCardProps {
   profilePic?: string;
@@ -77,7 +78,7 @@ const TweetCard: React.FC<TweetCardProps> = ({
   return (
     <>
       <div className="flex w-full border-l-transparent mt-4">
-        <div className="w-1/6">
+        <div className="w-[80px]">
           <Image
             src={profilePic || ""}
             width={30}
@@ -101,7 +102,13 @@ const TweetCard: React.FC<TweetCardProps> = ({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <BiCommentAdd size={20} classname="ml-2" />
+                  <AddTweetComment
+                    name={name}
+                    username={username}
+                    postbody={post.body}
+                    postId={post.id}
+                    profilePic={profilePic}
+                  />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Add a comment</p>
@@ -110,12 +117,20 @@ const TweetCard: React.FC<TweetCardProps> = ({
             </TooltipProvider>
 
             {post?.likedIds?.includes(`${userId}`) ? (
-              <BsHeartFill size={20} />
+              <div className="flex flex-row justify-between">
+                <BsHeartFill size={20} />
+                <span className="pl-1 space-y-1">{post?.likedIds?.length}</span>
+              </div>
             ) : (
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger onClick={handleLikeTweet}>
-                    <HeartIcon size={20} />
+                    <div className="flex flex-row">
+                      <HeartIcon size={20} />
+                      <span className="pl-1 space-y-1">
+                        {post?.likedIds?.length}
+                      </span>
+                    </div>
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Like tweet</p>
