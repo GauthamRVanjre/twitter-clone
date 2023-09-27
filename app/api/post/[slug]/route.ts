@@ -52,6 +52,9 @@ export async function GET(
       where: {
         id: params.slug,
       },
+      include: {
+        comments: true,
+      },
     });
 
     return new Response(JSON.stringify(postResult), { status: 200 });
