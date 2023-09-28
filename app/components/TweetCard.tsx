@@ -12,6 +12,7 @@ import {
 import { postTypes } from "../types/types";
 import toast from "react-hot-toast";
 import AddTweetComment from "./posts/AddTweetComment";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface TweetCardProps {
   profilePic?: string;
@@ -19,6 +20,7 @@ interface TweetCardProps {
   username?: string;
   post: postTypes;
   userId: string | undefined;
+  userBio: string | undefined;
 }
 
 const TweetCard: React.FC<TweetCardProps> = ({
@@ -27,6 +29,7 @@ const TweetCard: React.FC<TweetCardProps> = ({
   username,
   post,
   userId,
+  userBio,
 }) => {
   function formatDateToDDMonthYY(isoDateString: string) {
     const months = [
@@ -81,13 +84,38 @@ const TweetCard: React.FC<TweetCardProps> = ({
     <>
       <div className="flex w-full border-l-transparent mt-4">
         <div className="w-[80px]">
-          <Image
-            src={profilePic || ""}
-            width={30}
-            height={10}
-            alt="user pic"
-            className="w-14 h-14 rounded-full"
-          />
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Image
+                  src={profilePic || ""}
+                  width={30}
+                  height={10}
+                  alt="user pic"
+                  className="w-14 h-14 rounded-full"
+                />
+              </TooltipTrigger>
+              <TooltipContent className="w-[200px] h-[175px]">
+                <ScrollArea className="h-[150px]">
+                  <div className="flex flex-row justify-between">
+                    <Image
+                      src={profilePic || ""}
+                      width={20}
+                      height={20}
+                      alt="user pic"
+                      className="w-16 h-16 rounded-full"
+                    />
+                    <button className="mr-4">Follow</button>
+                  </div>
+                  <div className="flex flex-col mt-2">
+                    <p className="pr-2 font-bold text-xl">{name}</p>
+                    <p className=" opacity-70">{username} - </p>
+                    <p>{userBio}</p>
+                  </div>
+                </ScrollArea>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         <div className="w-3/4">
           <div className="flex flex-row">

@@ -19,6 +19,7 @@ export default function Home() {
       email: data.email,
       username: data.username,
       profilePic: data.profilePic,
+      Bio: data.Bio,
     });
   };
 

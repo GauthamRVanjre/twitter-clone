@@ -34,7 +34,7 @@ const page = () => {
     } else {
       window.location.replace("/");
     }
-  }, []);
+  }, [userDetails]);
 
   return (
     <div>

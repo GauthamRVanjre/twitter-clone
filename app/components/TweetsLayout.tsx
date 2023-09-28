@@ -36,11 +36,13 @@ const TweetsLayout = () => {
         {posts.map((post: postTypes) => {
           return (
             <TweetCard
+              key={post.id}
               username={post.user.username}
               profilePic={post.user.profilePic}
               name={post.user.name}
               post={post}
               userId={currentUser}
+              userBio={userDetails?.Bio}
             />
           );
         })}

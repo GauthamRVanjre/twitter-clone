@@ -7,6 +7,7 @@ interface UserDetails {
   email: string;
   username: string;
   profilePic: string;
+  Bio: string;
 }
 
 // Create a context

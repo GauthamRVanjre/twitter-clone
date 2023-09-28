@@ -12,6 +12,8 @@ interface profileLayoutProps {
 }
 
 const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
+  console.log("userDetails in profile page", userDetails);
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-between p-4">
@@ -79,6 +81,7 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
                 profilePic={userDetails?.profilePic}
                 name={userDetails?.name}
                 username={userDetails?.username}
+                userBio={userDetails.Bio}
                 post={post}
                 userId={id}
               />

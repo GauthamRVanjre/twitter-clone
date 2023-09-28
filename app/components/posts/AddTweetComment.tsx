@@ -70,7 +70,7 @@ const AddTweetComment: React.FC<AddTweetCommentProps> = ({
         <DialogTrigger>
           <div className="flex flex-row justify-between">
             <BiCommentAdd size={20} classname="ml-2" />
-            <span className="pl-1 space-y-1">{postComments.length}</span>
+            <span className="pl-1 space-y-1">{postComments?.length}</span>
           </div>
         </DialogTrigger>
         <DialogContent>
