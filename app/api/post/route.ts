@@ -43,7 +43,20 @@ export async function GET(request: Request) {
             profilePic: true,
           },
         },
-        comments: true,
+        comments: {
+          select: {
+            id: true,
+            body: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                username: true,
+                profilePic: true,
+              },
+            },
+          },
+        },
       },
     });
 

@@ -33,4 +33,18 @@ export type postTypes = {
   userId: string;
   user: userInPostsData;
   likedIds: string[];
+  comments: Comments;
+};
+
+export type Comments = {
+  id: string;
+  body: string;
+  user: userComment;
+};
+
+export type userComment = {
+  id: string;
+  name: string;
+  username: string;
+  profilePic: string;
 };
