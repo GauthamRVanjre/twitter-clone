@@ -110,6 +110,7 @@ const TweetCard: React.FC<TweetCardProps> = ({
                     postbody={post.body}
                     postId={post.id}
                     profilePic={profilePic}
+                    postComments={post?.comments}
                   />
                 </TooltipTrigger>
                 <TooltipContent>

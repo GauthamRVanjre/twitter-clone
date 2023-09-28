@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { Comments } from "@/app/types/types";
 
 interface AddTweetCommentProps {
   name: string | undefined;
@@ -23,6 +24,7 @@ interface AddTweetCommentProps {
   postbody: string;
   profilePic: string | undefined;
   postId: string;
+  postComments: Comments[];
 }
 
 const AddTweetComment: React.FC<AddTweetCommentProps> = ({
@@ -31,6 +33,7 @@ const AddTweetComment: React.FC<AddTweetCommentProps> = ({
   postbody,
   profilePic,
   postId,
+  postComments,
 }) => {
   const { userDetails } = useUser();
   const [tweetComment, setTweetComment] = useState("");
@@ -65,7 +68,10 @@ const AddTweetComment: React.FC<AddTweetCommentProps> = ({
     <>
       <Dialog>
         <DialogTrigger>
-          <BiCommentAdd size={20} classname="ml-2" />
+          <div className="flex flex-row justify-between">
+            <BiCommentAdd size={20} classname="ml-2" />
+            <span className="pl-1 space-y-1">{postComments.length}</span>
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

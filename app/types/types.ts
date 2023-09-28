@@ -33,7 +33,7 @@ export type postTypes = {
   userId: string;
   user: userInPostsData;
   likedIds: string[];
-  comments: Comments;
+  comments: Comments[];
 };
 
 export type Comments = {
