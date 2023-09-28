@@ -12,6 +12,13 @@ export async function POST(request: Request) {
   try {
     await prisma.$connect();
 
+    if (requestBody.userId === undefined) {
+      return new Response(
+        JSON.stringify({ message: "cannot comment on tweet" }),
+        { status: 401 }
+      );
+    }
+
     const postComment = await prisma.comment.create({
       data: {
         body: requestBody.body,

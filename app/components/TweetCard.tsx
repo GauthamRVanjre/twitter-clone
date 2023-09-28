@@ -67,6 +67,8 @@ const TweetCard: React.FC<TweetCardProps> = ({
 
       if (likeTweet.status === 200) {
         toast.success("tweet liked successfully");
+      } else if (likeTweet.status === 401) {
+        toast.error("please login to like tweet");
       } else {
         toast.error("something went wrong");
       }

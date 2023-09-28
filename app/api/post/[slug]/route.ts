@@ -20,6 +20,12 @@ export async function PUT(
 
     let likedIds = findPost?.likedIds || [];
 
+    if (body.id === undefined) {
+      return new Response(JSON.stringify({ message: "cannot like tweet" }), {
+        status: 401,
+      });
+    }
+
     const postUpdate = await prisma.post.update({
       where: {
         id: params.slug,

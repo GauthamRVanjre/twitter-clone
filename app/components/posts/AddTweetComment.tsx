@@ -49,6 +49,8 @@ const AddTweetComment: React.FC<AddTweetCommentProps> = ({
 
       if (response.status === 200) {
         toast.success("commented tweet successfully");
+      } else if (response.status === 401) {
+        toast.error("Login to comment on tweet");
       } else {
         toast.error("could not reply to tweet");
       }
