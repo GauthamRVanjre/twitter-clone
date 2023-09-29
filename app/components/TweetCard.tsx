@@ -13,6 +13,7 @@ import { postTypes } from "../types/types";
 import toast from "react-hot-toast";
 import AddTweetComment from "./posts/AddTweetComment";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Link from "next/link";
 
 interface TweetCardProps {
   profilePic?: string;
@@ -108,7 +109,11 @@ const TweetCard: React.FC<TweetCardProps> = ({
                     <button className="mr-4">Follow</button>
                   </div>
                   <div className="flex flex-col mt-2">
-                    <p className="pr-2 font-bold text-xl">{name}</p>
+                    <Link href={`/profile/${post.userId}`}>
+                      <p className="pr-2 font-bold text-xl hover:underline">
+                        {name}
+                      </p>
+                    </Link>
                     <p className=" opacity-70">{username} - </p>
                     <p>{userBio}</p>
                   </div>
