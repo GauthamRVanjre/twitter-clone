@@ -1,3 +1,4 @@
+"use client";
 import { LoginFormValidation } from "@/lib/validations/LoginFormValidation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";

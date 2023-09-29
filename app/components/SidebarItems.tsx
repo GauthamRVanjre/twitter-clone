@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { IconType } from "react-icons";
 
@@ -6,6 +7,7 @@ type SidebarItemsProps = {
   icon: IconType;
   label: String;
   auth?: boolean;
+  href?: string;
 };
 
 const SidebarItems: React.FC<SidebarItemsProps> = ({
@@ -13,9 +15,11 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
   label,
   auth,
   onClick,
+  href,
 }) => {
+  let destination = href ? href : "/";
   return (
-    <div className="flex flex-row items-center">
+    <Link href={destination} className="flex flex-row items-center">
       <div
         onClick={onClick}
         className="relative rounded-full h-14 w-14
@@ -47,7 +51,7 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
         <Icon size={24} />
         <p className="hidden lg:block text-xl">{label}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

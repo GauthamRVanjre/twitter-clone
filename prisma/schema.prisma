@@ -15,4 +15,36 @@ model User{
   name  String
   email String @unique
   password  String
+  // new fields which are optional and not required during signUp or login
+  profilePic String? 
+  username String? @unique
+  Bio String?
+  Location String?
+  Website String?
+  posts Post[]
+  comments Comment[]
+}
+
+model Post {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  body    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId  String? @db.ObjectId
+  likedIds String[] @db.ObjectId
+
+  user User? @relation(fields: [userId], references: [id])
+  comments Comment[]
+}
+
+model Comment{
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  body    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId  String @db.ObjectId
+  postId  String @db.ObjectId
+
+  user User @relation(fields: [userId] , references: [id])
+  post Post @relation(fields: [postId] , references: [id])
 }
