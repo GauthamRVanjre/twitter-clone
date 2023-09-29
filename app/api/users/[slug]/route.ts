@@ -12,6 +12,26 @@ export async function GET(
       where: {
         id: params.slug,
       },
+      include: {
+        posts: {
+          include: {
+            comments: {
+              select: {
+                id: true,
+                body: true,
+                user: {
+                  select: {
+                    id: true,
+                    name: true,
+                    username: true,
+                    profilePic: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
 
     return new Response(JSON.stringify(userResult), {
@@ -48,5 +68,7 @@ export async function PUT(
     return new Response(JSON.stringify({ message: "something went wrong!" }), {
       status: 500,
     });
+  } finally {
+    prisma.$disconnect();
   }
 }

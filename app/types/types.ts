@@ -8,6 +8,7 @@ export type usersTypes = {
   Bio: string;
   Location: string;
   Website: string;
+  posts: postTypes[];
 };
 
 export type userProfileTypes = {
@@ -16,4 +17,34 @@ export type userProfileTypes = {
   bio: string;
   location: string;
   website: string;
+};
+
+export type userInPostsData = {
+  name: string;
+  username: string;
+  profilePic: string;
+};
+
+export type postTypes = {
+  id: string;
+  body: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  user: userInPostsData;
+  likedIds: string[];
+  comments: Comments[];
+};
+
+export type Comments = {
+  id: string;
+  body: string;
+  user: userComment;
+};
+
+export type userComment = {
+  id: string;
+  name: string;
+  username: string;
+  profilePic: string;
 };

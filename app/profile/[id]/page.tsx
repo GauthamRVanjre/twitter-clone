@@ -1,16 +1,25 @@
 "use client";
 import ProfileLayout from "@/app/components/profile/ProfileLayout";
 import { usersTypes } from "@/app/types/types";
+import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
+
 import React, { useEffect, useState } from "react";
 
 const page = () => {
   const { id } = useParams();
-  const [userDetails, setUserDetails] = useState({
+  const { data: session, status } = useSession();
+  const [userDetails, setUserDetails] = useState<usersTypes>({
     id: "",
     name: "",
     email: "",
     password: "",
+    profilePic: "",
+    username: "",
+    Bio: "",
+    Location: "",
+    Website: "",
+    posts: [],
   });
 
   const getUserDetails = async () => {
@@ -20,12 +29,16 @@ const page = () => {
   };
 
   useEffect(() => {
-    getUserDetails();
-  }, []);
+    if (status === "authenticated") {
+      getUserDetails();
+    } else {
+      window.location.replace("/");
+    }
+  }, [userDetails]);
 
   return (
     <div>
-      <ProfileLayout id={id} userDetails={userDetails} />
+      <ProfileLayout id={session?.user.id} userDetails={userDetails} />
     </div>
   );
 };

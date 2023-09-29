@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { IconContext } from "react-icons";
 import toast, { Toaster } from "react-hot-toast";
+import { UserProvider } from "./UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +23,10 @@ export default function RootLayout({
       <body>
         <main>
           <AuthProvider>
-            <Toaster />
-            {children}
+            <UserProvider>
+              <Toaster />
+              {children}
+            </UserProvider>
           </AuthProvider>
         </main>
       </body>

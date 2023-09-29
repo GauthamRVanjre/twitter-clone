@@ -28,7 +28,7 @@ const Sidebar = () => {
 
     {
       label: "Profile",
-      href: `/profile/${(session?.user as any)?.id}`,
+      href: `/profile/${session?.user?.id}`,
       icon: FaUser,
       auth: true,
     },
@@ -56,13 +56,13 @@ const Sidebar = () => {
             {status === "authenticated" ? (
               <>
                 <SidebarItems
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    signOut();
+                    localStorage.clear();
+                  }}
                   icon={BiLogOut}
                   label="Logout"
                 />
-                <div className="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-semibold text-white bg-blue-500 rounded-full cursor-pointer hover:bg-blue-600">
-                  Tweet
-                </div>
               </>
             ) : (
               <>
