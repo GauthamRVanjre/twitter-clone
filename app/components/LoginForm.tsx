@@ -94,7 +94,11 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
-          <Button disabled={isLoading} type="submit">
+          <Button
+            className="rounded-full bg-slate-200 text-black w-[100px] h-[30px]"
+            disabled={isLoading}
+            type="submit"
+          >
             Submit
           </Button>
 

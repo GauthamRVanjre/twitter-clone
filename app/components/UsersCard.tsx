@@ -24,7 +24,9 @@ const UsersCard: React.FC<UsersCardProps> = ({ user }) => {
           <p className="pt-2">{user?.username}</p>
         </div>
         <div>
-          <button>Follow</button>
+          <button className="rounded-full bg-slate-200 text-black w-[100px] h-[30px]">
+            Follow
+          </button>
         </div>
       </div>
     </div>
