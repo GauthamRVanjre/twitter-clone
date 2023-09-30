@@ -9,6 +9,7 @@ export type usersTypes = {
   Location: string;
   Website: string;
   posts: postTypes[];
+  followingIds: string[];
 };
 
 export type userProfileTypes = {

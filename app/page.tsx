@@ -20,6 +20,7 @@ export default function Home() {
       username: data.username,
       profilePic: data.profilePic,
       Bio: data.Bio,
+      followingIds: data?.followingIds,
     });
   };
 

@@ -8,6 +8,7 @@ interface UserDetails {
   username: string;
   profilePic: string;
   Bio: string;
+  followingIds: string[];
 }
 
 // Create a context

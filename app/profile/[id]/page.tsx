@@ -22,6 +22,7 @@ const page = () => {
     Location: "",
     Website: "",
     posts: [],
+    followingIds: [],
   });
 
   const getUserDetails = async () => {
