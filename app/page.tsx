@@ -25,6 +25,8 @@ export default function Home() {
     });
   };
 
+  console.log("user context", userDetails);
+
   useEffect(() => {
     if (status === "authenticated") {
       getUserDetails();

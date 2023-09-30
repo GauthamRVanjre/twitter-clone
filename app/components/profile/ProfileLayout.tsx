@@ -31,7 +31,9 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
           <p className="text-gray-500">{userDetails?.username}</p>
         </div>
         <div className="flex flex-row items-center space-x-4">
-          <button className="btn btn-primary hover:opacity-60">Follow</button>
+          {id !== userDetails?.id && (
+            <button className="btn btn-primary hover:opacity-60">Follow</button>
+          )}
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline">Edit Profile</Button>
