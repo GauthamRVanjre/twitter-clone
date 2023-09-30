@@ -1,11 +1,33 @@
 import React from "react";
 import { usersTypes } from "../types/types";
 import Image from "next/image";
+import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
 
 interface UsersCardProps {
   user: usersTypes;
   id: string | undefined;
 }
+
+const handleFollowOperation = async (
+  followUserId: string,
+  currentUserId: string | undefined
+) => {
+  const response = await fetch("/api/Follow", {
+    method: "PUT",
+    body: JSON.stringify({
+      followId: followUserId,
+      currentUser: currentUserId,
+      text: "follow",
+    }),
+  });
+
+  if (response.status === 200) {
+    toast.success("You now follow this account");
+  } else {
+    toast.error("something went wrong! try again");
+  }
+};
 
 const UsersCard: React.FC<UsersCardProps> = ({ user, id }) => {
   return (
@@ -26,9 +48,15 @@ const UsersCard: React.FC<UsersCardProps> = ({ user, id }) => {
         </div>
         <div className="pl-20">
           {id !== user.id && (
-            <button className="rounded-full bg-slate-200 text-black w-[100px] h-[30px]">
+            <Button
+              onClick={() => {
+                // handleFollowOperation(user.id, id);
+                console.log("button clicked");
+              }}
+              className="rounded-full bg-slate-200 text-black w-[100px] h-[30px] hover:opacity-60"
+            >
               Follow
-            </button>
+            </Button>
           )}
         </div>
       </div>

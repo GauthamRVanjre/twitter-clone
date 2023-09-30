@@ -5,13 +5,59 @@ import React from "react";
 import EditProfileDialog from "./EditProfileDialog";
 import Image from "next/image";
 import TweetCard from "../TweetCard";
+import toast from "react-hot-toast";
 
 interface profileLayoutProps {
   id: string | undefined;
   userDetails?: usersTypes;
+  currentUsersFollowing: string[] | undefined;
 }
 
-const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
+const handleFollowOperation = async (
+  followUserId: string | undefined,
+  currentUserId: string | undefined
+) => {
+  const response = await fetch("/api/Follow", {
+    method: "PUT",
+    body: JSON.stringify({
+      followId: followUserId,
+      currentUser: currentUserId,
+      text: "follow",
+    }),
+  });
+
+  if (response.status === 200) {
+    toast.success("You now follow this account");
+  } else {
+    toast.error("something went wrong! try again");
+  }
+};
+
+const handleUnFollowOperation = async (
+  followUserId: string | undefined,
+  currentUserId: string | undefined
+) => {
+  const response = await fetch("/api/Follow", {
+    method: "PUT",
+    body: JSON.stringify({
+      followId: followUserId,
+      currentUser: currentUserId,
+      text: "unfollow",
+    }),
+  });
+
+  if (response.status === 200) {
+    toast.success("You now follow this account");
+  } else {
+    toast.error("something went wrong! try again");
+  }
+};
+
+const ProfileLayout: React.FC<profileLayoutProps> = ({
+  id,
+  userDetails,
+  currentUsersFollowing,
+}) => {
   console.log("userDetails in profile page", userDetails);
 
   return (
@@ -31,8 +77,22 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
           <p className="text-gray-500">{userDetails?.username}</p>
         </div>
         <div className="flex flex-row items-center space-x-4">
-          {id !== userDetails?.id && (
-            <button className="btn btn-primary hover:opacity-60">Follow</button>
+          {id !== userDetails?.id &&
+            !currentUsersFollowing?.includes(userDetails?.id || "") && (
+              <button
+                onClick={() => handleFollowOperation(userDetails?.id, id)}
+                className="btn btn-primary hover:opacity-60"
+              >
+                Follow
+              </button>
+            )}
+          {currentUsersFollowing?.includes(userDetails?.id || "") && (
+            <button
+              onClick={() => handleUnFollowOperation(userDetails?.id, id)}
+              className="btn btn-primary hover:opacity-60"
+            >
+              UnFollow
+            </button>
           )}
           <Dialog>
             <DialogTrigger asChild>
