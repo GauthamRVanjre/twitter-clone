@@ -106,9 +106,6 @@ const TweetCard: React.FC<TweetCardProps> = ({
                       alt="user pic"
                       className="w-16 h-16 rounded-full"
                     />
-                    <button className="rounded-full bg-black text-slate-200 w-[80px] h-[30px] mt-4">
-                      Follow
-                    </button>
                   </div>
                   <div className="flex flex-col mt-2">
                     <Link href={`/profile/${post.userId}`}>

@@ -52,10 +52,18 @@ const handleUnFollowOperation = async (
   });
 
   if (response.status === 200) {
-    toast.success("You now follow this account");
+    toast.success(
+      "You have unfollowed this account, redirecting you to home page"
+    );
   } else {
-    toast.error("something went wrong! try again");
+    toast.error(
+      "something went wrong! try again, redirecting you to home page"
+    );
   }
+
+  setTimeout(() => {
+    window.location.replace("/");
+  }, 1000);
 };
 
 const ProfileLayout: React.FC<profileLayoutProps> = ({

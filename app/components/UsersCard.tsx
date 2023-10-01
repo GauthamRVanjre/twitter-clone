@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 interface UsersCardProps {
   user: usersTypes;
   id: string | undefined;
+  currentUsersFollowing: string[] | undefined;
 }
 
 const handleFollowOperation = async (
-  followUserId: string,
+  followUserId: string | undefined,
   currentUserId: string | undefined
 ) => {
   const response = await fetch("/api/Follow", {
@@ -29,7 +30,11 @@ const handleFollowOperation = async (
   }
 };
 
-const UsersCard: React.FC<UsersCardProps> = ({ user, id }) => {
+const UsersCard: React.FC<UsersCardProps> = ({
+  user,
+  id,
+  currentUsersFollowing,
+}) => {
   return (
     <div className="border-solid w-[300px]">
       <div className="mt-4 mb-2 flex flex-row w-[300px]">
@@ -47,16 +52,15 @@ const UsersCard: React.FC<UsersCardProps> = ({ user, id }) => {
           <p className="pt-2">{user?.username}</p>
         </div>
         <div className="pl-20">
-          {id !== user.id && (
-            <Button
+          {id !== user.id && !currentUsersFollowing?.includes(user.id) && (
+            <button
               onClick={() => {
-                // handleFollowOperation(user.id, id);
-                console.log("button clicked");
+                handleFollowOperation(user.id, id);
               }}
               className="rounded-full bg-slate-200 text-black w-[100px] h-[30px] hover:opacity-60"
             >
               Follow
-            </Button>
+            </button>
           )}
         </div>
       </div>

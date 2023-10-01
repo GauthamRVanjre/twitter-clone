@@ -5,12 +5,14 @@ import { FaSpinner } from "react-icons/fa";
 import { usersTypes } from "../types/types";
 import UsersCard from "./UsersCard";
 import { useSession } from "next-auth/react";
+import { useUser } from "../UserContext";
 
 const SearchBar = () => {
   const [userInput, setUserInput] = useState("");
   const [users, setUsers] = useState<usersTypes[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { data: session } = useSession();
+  const { userDetails } = useUser();
 
   const fetchUsers = async () => {
     const response = await fetch("/api/users");
@@ -22,7 +24,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [userDetails, users]);
 
   return (
     <>
@@ -42,7 +44,13 @@ const SearchBar = () => {
       {users
         .filter((user) => user.name.includes(userInput))
         .map((user: usersTypes) => {
-          return <UsersCard user={user} id={session?.user.id} />;
+          return (
+            <UsersCard
+              user={user}
+              id={session?.user.id}
+              currentUsersFollowing={userDetails?.followingIds}
+            />
+          );
         })}
     </>
   );
