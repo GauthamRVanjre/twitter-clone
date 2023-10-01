@@ -40,7 +40,7 @@ const page = () => {
     } else {
       window.location.replace("/");
     }
-  }, [userDetails]);
+  }, [profileUserDetails, userDetails]);
 
   return (
     <>

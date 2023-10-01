@@ -27,10 +27,15 @@ const handleFollowOperation = async (
   });
 
   if (response.status === 200) {
-    toast.success("You now follow this account");
+    toast.success("You now follow this account, redirecting you to home page");
   } else {
-    toast.error("something went wrong! try again");
+    toast.error(
+      "something went wrong! try again, redirecting you to home page"
+    );
   }
+  setTimeout(() => {
+    window.location.replace("/");
+  }, 1000);
 };
 
 const handleUnFollowOperation = async (
@@ -58,7 +63,7 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({
   userDetails,
   currentUsersFollowing,
 }) => {
-  console.log("userDetails in profile page", userDetails);
+  // const { setUserDetails } = useUser();
 
   return (
     <div className="flex flex-col">
