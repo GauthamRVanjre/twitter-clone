@@ -12,6 +12,22 @@ export type usersTypes = {
   followingIds: string[];
 };
 
+export type postDetails = {
+  id: string;
+  body: string;
+  createdAt: Date;
+  updatedAt: Date;
+  likedIds: string[];
+  user: usersTypes;
+  comments: PostComments;
+};
+
+export type PostComments = {
+  id: string;
+  body: string;
+  user: usersTypes;
+};
+
 export type userProfileTypes = {
   imageUrl: string;
   username: string;

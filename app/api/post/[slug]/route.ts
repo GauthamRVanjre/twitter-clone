@@ -59,6 +59,14 @@ export async function GET(
         id: params.slug,
       },
       include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            username: true,
+            profilePic: true,
+          },
+        },
         comments: {
           select: {
             id: true,
