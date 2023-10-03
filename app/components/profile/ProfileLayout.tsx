@@ -6,6 +6,7 @@ import EditProfileDialog from "./EditProfileDialog";
 import Image from "next/image";
 import TweetCard from "../TweetCard";
 import toast from "react-hot-toast";
+import { useUser } from "@/app/UserContext";
 
 interface profileLayoutProps {
   id: string | undefined;
@@ -14,9 +15,11 @@ interface profileLayoutProps {
 }
 
 const handleFollowOperation = async (
-  followUserId: string | undefined,
+  followUserId: string | undefined | string,
   currentUserId: string | undefined
 ) => {
+  // const { setUserDetails, userDetails } = useUser();
+
   const response = await fetch("/api/Follow", {
     method: "PUT",
     body: JSON.stringify({
@@ -71,8 +74,6 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({
   userDetails,
   currentUsersFollowing,
 }) => {
-  // const { setUserDetails } = useUser();
-
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-between p-4">

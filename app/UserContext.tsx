@@ -9,7 +9,7 @@ interface UserDetails {
   username: string;
   profilePic: string;
   Bio: string;
-  followingIds: string[];
+  followingIds: string[] | undefined;
 }
 
 // Create a context
