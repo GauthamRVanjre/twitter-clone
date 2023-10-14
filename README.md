@@ -45,6 +45,7 @@ http://localhost:3000/
 - Frontend:
 
   - Next.js
+  - Typescript
   - Tailwind CSS
   - Shadcn
 
