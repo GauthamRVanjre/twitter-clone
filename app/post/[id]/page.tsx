@@ -3,7 +3,12 @@ import SearchBar from "@/app/components/SearchBar";
 import Sidebar from "@/app/components/Sidebar";
 import AddTweetComment from "@/app/components/posts/AddTweetComment";
 import CommentsLayout from "@/app/components/posts/CommentsLayout";
-import { postDetails, postTypes } from "@/app/types/types";
+import {
+  Comments,
+  postDetails,
+  postTypes,
+  userComment,
+} from "@/app/types/types";
 import {
   TooltipProvider,
   Tooltip,
@@ -24,7 +29,6 @@ const page = () => {
   const fetchPostDetails = async () => {
     const response = await fetch(`/api/post/${id}`);
     const data = await response.json();
-    console.log(data);
     setPostDetails(data);
   };
 
@@ -136,10 +140,19 @@ const page = () => {
                 )}
               </div>
             </div>
-            <div>
-              {postDetails.comments?.map((comment: postTypes) => {
-                <CommentsLayout comment={comment} />;
-              })}
+            <div className="flex flex-col">
+              <div>
+                <h3 className="text-xl font-bold mt-2 mb-2 pl-2">
+                  Comments - {postDetails.comments?.length}
+                </h3>
+
+                <div>
+                  {postDetails.comments?.length > 0 &&
+                    postDetails.comments?.map((comment: Comments) => (
+                      <CommentsLayout key={comment.id} comment={comment} />
+                    ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

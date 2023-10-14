@@ -68,9 +68,7 @@ export async function GET(
           },
         },
         comments: {
-          select: {
-            id: true,
-            body: true,
+          include: {
             user: {
               select: {
                 id: true,
