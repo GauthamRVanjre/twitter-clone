@@ -20,3 +20,43 @@ To run this project, make sure you have [Node.js](https://nodejs.org/) version 1
    ```bash
    git clone https://github.com/yourusername/twitter-clone.git
    ```
+
+2. Change into the project directory:
+
+   ```bash
+   cd twitter-clone
+   ```
+
+3. Install the dependencies:
+   ```bash
+    npm install
+   ```
+4. Start the application:
+   ```bash
+   npm run dev
+   ```
+5. The application will be accessible at
+   `bash
+ http://localhost:3000/
+ `
+
+## Technologies Used
+
+- Frontend:
+
+  --Next.js
+  --Tailwind CSS
+  --Shadcn
+
+- Authentication:
+
+  --NextAuth
+
+- Backend:
+
+  --Prisma
+  --Node.js
+
+- Database:
+
+  --MongoDB
