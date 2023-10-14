@@ -37,26 +37,41 @@ To run this project, make sure you have [Node.js](https://nodejs.org/) version 1
    ```
 5. The application will be accessible at
    `bash
- http://localhost:3000/
- `
+http://localhost:3000/
+`
 
 ## Technologies Used
 
 - Frontend:
 
-  --Next.js
-  --Tailwind CSS
-  --Shadcn
+  - Next.js
+  - Tailwind CSS
+  - Shadcn
 
 - Authentication:
 
-  --NextAuth
+  - NextAuth
 
 - Backend:
 
-  --Prisma
-  --Node.js
+  - Prisma
+  - Node.js
 
 - Database:
 
-  --MongoDB
+  - MongoDB
+
+## Features
+
+- **Authentication**:
+
+  - User login, signup, and logout functionality.
+
+- **Social Media Features**:
+
+  - Users can post tweets, similar to Twitter.
+  - User profile management, allowing users to edit their username, name, and profile picture.
+
+- **Interactions**:
+  - Users can like and comment on other users' tweets.
+  - Users have the ability to follow other users for a social network experience.
