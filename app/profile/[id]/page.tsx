@@ -1,4 +1,5 @@
 "use client";
+import { useUser } from "@/app/UserContext";
 import ProfileLayout from "@/app/components/profile/ProfileLayout";
 import { usersTypes } from "@/app/types/types";
 import { useSession } from "next-auth/react";
@@ -11,7 +12,8 @@ const page = () => {
   const { id } = useParams();
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState(true);
-  const [userDetails, setUserDetails] = useState<usersTypes>({
+  const { userDetails } = useUser();
+  const [profileUserDetails, setProfileUserDetails] = useState<usersTypes>({
     id: "",
     name: "",
     email: "",
@@ -22,12 +24,13 @@ const page = () => {
     Location: "",
     Website: "",
     posts: [],
+    followingIds: [],
   });
 
   const getUserDetails = async () => {
     const response = await fetch(`/api/users/${id}`);
     const data = await response.json();
-    setUserDetails(data);
+    setProfileUserDetails(data);
     setIsLoading(false);
   };
 
@@ -37,7 +40,7 @@ const page = () => {
     } else {
       window.location.replace("/");
     }
-  }, [userDetails]);
+  }, [profileUserDetails, userDetails]);
 
   return (
     <>
@@ -47,7 +50,11 @@ const page = () => {
         </div>
       ) : (
         <div>
-          <ProfileLayout id={session?.user.id} userDetails={userDetails} />
+          <ProfileLayout
+            currentUsersFollowing={userDetails?.followingIds}
+            id={session?.user.id}
+            userDetails={profileUserDetails}
+          />
         </div>
       )}
     </>

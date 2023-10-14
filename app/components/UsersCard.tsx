@@ -4,13 +4,15 @@ import Image from "next/image";
 
 interface UsersCardProps {
   user: usersTypes;
+  id: string | undefined;
+  currentUsersFollowing: string[] | undefined;
 }
 
-const UsersCard: React.FC<UsersCardProps> = ({ user }) => {
+const UsersCard: React.FC<UsersCardProps> = ({ user, id }) => {
   return (
     <div className="border-solid w-[300px]">
-      <div className="mt-4 mb-2 flex flex-row justify-between w-[300px]">
-        <div>
+      <div className="mt-4 mb-2 flex flex-row w-[300px]">
+        <div className="pl-4">
           <Image
             src={user?.profilePic || ""}
             alt="user pic"
@@ -19,14 +21,9 @@ const UsersCard: React.FC<UsersCardProps> = ({ user }) => {
             className="rounded-full"
           />
         </div>
-        <div>
+        <div className="pl-12">
           <p>{user?.name || ""}</p>
           <p className="pt-2">{user?.username}</p>
-        </div>
-        <div>
-          <button className="rounded-full bg-slate-200 text-black w-[100px] h-[30px]">
-            Follow
-          </button>
         </div>
       </div>
     </div>

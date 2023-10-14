@@ -3,11 +3,13 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // Define the user details type
 interface UserDetails {
+  id: string;
   name: string;
   email: string;
   username: string;
   profilePic: string;
   Bio: string;
+  followingIds: string[] | undefined;
 }
 
 // Create a context

@@ -5,15 +5,75 @@ import React from "react";
 import EditProfileDialog from "./EditProfileDialog";
 import Image from "next/image";
 import TweetCard from "../TweetCard";
+import toast from "react-hot-toast";
+import { useUser } from "@/app/UserContext";
 
 interface profileLayoutProps {
   id: string | undefined;
   userDetails?: usersTypes;
+  currentUsersFollowing: string[] | undefined;
 }
 
-const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
-  console.log("userDetails in profile page", userDetails);
+const handleFollowOperation = async (
+  followUserId: string | undefined | string,
+  currentUserId: string | undefined
+) => {
+  // const { setUserDetails, userDetails } = useUser();
 
+  const response = await fetch("/api/Follow", {
+    method: "PUT",
+    body: JSON.stringify({
+      followId: followUserId,
+      currentUser: currentUserId,
+      text: "follow",
+    }),
+  });
+
+  if (response.status === 200) {
+    toast.success("You now follow this account, redirecting you to home page");
+  } else {
+    toast.error(
+      "something went wrong! try again, redirecting you to home page"
+    );
+  }
+  setTimeout(() => {
+    window.location.replace("/");
+  }, 1000);
+};
+
+const handleUnFollowOperation = async (
+  followUserId: string | undefined,
+  currentUserId: string | undefined
+) => {
+  const response = await fetch("/api/Follow", {
+    method: "PUT",
+    body: JSON.stringify({
+      followId: followUserId,
+      currentUser: currentUserId,
+      text: "unfollow",
+    }),
+  });
+
+  if (response.status === 200) {
+    toast.success(
+      "You have unfollowed this account, redirecting you to home page"
+    );
+  } else {
+    toast.error(
+      "something went wrong! try again, redirecting you to home page"
+    );
+  }
+
+  setTimeout(() => {
+    window.location.replace("/");
+  }, 1000);
+};
+
+const ProfileLayout: React.FC<profileLayoutProps> = ({
+  id,
+  userDetails,
+  currentUsersFollowing,
+}) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-between p-4">
@@ -31,7 +91,23 @@ const ProfileLayout: React.FC<profileLayoutProps> = ({ id, userDetails }) => {
           <p className="text-gray-500">{userDetails?.username}</p>
         </div>
         <div className="flex flex-row items-center space-x-4">
-          <button className="btn btn-primary">Follow</button>
+          {id !== userDetails?.id &&
+            !currentUsersFollowing?.includes(userDetails?.id || "") && (
+              <button
+                onClick={() => handleFollowOperation(userDetails?.id, id)}
+                className="btn btn-primary hover:opacity-60"
+              >
+                Follow
+              </button>
+            )}
+          {currentUsersFollowing?.includes(userDetails?.id || "") && (
+            <button
+              onClick={() => handleUnFollowOperation(userDetails?.id, id)}
+              className="btn btn-primary hover:opacity-60"
+            >
+              UnFollow
+            </button>
+          )}
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline">Edit Profile</Button>
