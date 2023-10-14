@@ -21,6 +21,8 @@ model User{
   Bio String?
   Location String?
   Website String?
+  followingIds  String[] @db.ObjectId
+
   posts Post[]
   comments Comment[]
 }

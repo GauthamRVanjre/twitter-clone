@@ -6,9 +6,11 @@ import { postTypes } from "../types/types";
 import TweetCard from "./TweetCard";
 import { useUser } from "../UserContext";
 import { useSession } from "next-auth/react";
+import { FaSpinner } from "react-icons/fa";
 
 const TweetsLayout = () => {
   const [posts, setPosts] = useState<postTypes[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { userDetails } = useUser();
   const { data: session } = useSession();
   const currentUser = session?.user?.id;
@@ -21,6 +23,8 @@ const TweetsLayout = () => {
     } else {
       toast.error("something went wrong");
     }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -33,6 +37,12 @@ const TweetsLayout = () => {
         <h1 className="text-2xl">Home</h1>
 
         <UserTweetForm />
+
+        {isLoading && (
+          <div className="flex justify-center items-center h-full">
+            <FaSpinner className="animate-spin text-2xl" />
+          </div>
+        )}
         {posts.map((post: postTypes) => {
           return (
             <TweetCard
