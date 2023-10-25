@@ -62,6 +62,10 @@ http://localhost:3000/
 
   - MongoDB
 
+## Login credentials for Demo of the application
+ - email: Gautham@gmail.com
+ - password: 123
+
 ## Features
 
 - **Authentication**:
